@@ -1,0 +1,181 @@
+@import "tailwindcss";
+
+@theme {
+  /* ── گروه حقوقی راهگشا — Design System ─────────────────── */
+  --color-pine-950: #061c1a;
+  --color-pine-900: #0b2926;
+  --color-pine-850: #10312d;
+  --color-pine-800: #163f39;
+  --color-pine-700: #1e5148;
+  --color-pine-600: #286357;
+  --color-pine-500: #347466;
+  --color-pine-100: #dcebe4;
+
+  --color-gold-200: #f0dfb0;
+  --color-gold-300: #e6cd8b;
+  --color-gold-400: #d9b45b;
+  --color-gold-500: #c9a227;
+  --color-gold-600: #a98526;
+  --color-gold-700: #7d611c;
+
+  --color-cream: #f4f0e4;
+  --color-paper: #faf8ef;
+  --color-sand: #eae6d6;
+
+  --font-sans: var(--font-vazirmatn), "Vazirmatn", ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-amiri), "Amiri", serif;
+
+  --shadow-gold: 0 10px 40px -10px rgba(201, 162, 39, 0.45);
+  --shadow-deep: 0 30px 60px -20px rgba(6, 28, 26, 0.55);
+
+  --animate-marquee: marquee 40s linear infinite;
+  --animate-marquee-reverse: marqueeReverse 46s linear infinite;
+  --animate-float-slow: floatSlow 7s ease-in-out infinite;
+  --animate-spin-slow: spin 14s linear infinite;
+  --animate-pulse-dot: pulseDot 1.6s ease-in-out infinite;
+
+  @keyframes marquee {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+  }
+  @keyframes marqueeReverse {
+    from { transform: translateX(-50%); }
+    to { transform: translateX(0); }
+  }
+  @keyframes floatSlow {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-14px); }
+  }
+  @keyframes pulseDot {
+    0%, 100% { opacity: 1; box-shadow: 0 0 0 0 rgba(74, 222, 128, 0.55); }
+    50% { opacity: 0.75; box-shadow: 0 0 0 6px rgba(74, 222, 128, 0); }
+  }
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--color-paper);
+  color: var(--color-pine-950);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+}
+
+::selection {
+  background: var(--color-gold-500);
+  color: var(--color-pine-950);
+}
+
+::-webkit-scrollbar { width: 9px; height: 9px; }
+::-webkit-scrollbar-track { background: var(--color-cream); }
+::-webkit-scrollbar-thumb { background: var(--color-pine-700); border-radius: 99px; }
+::-webkit-scrollbar-thumb:hover { background: var(--color-gold-600); }
+
+/* ── Utility classes ─────────────────────────────────────── */
+
+.text-gold-gradient {
+  background: linear-gradient(160deg, #f5e6ac 0%, #d9b45b 32%, #a98526 55%, #eed88f 78%, #c9a227 100%);
+  background-size: 200% 200%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+  animation: goldShine 6s ease-in-out infinite;
+}
+@keyframes goldShine {
+  0%, 100% { background-position: 0% 40%; }
+  50% { background-position: 100% 60%; }
+}
+
+.noise-overlay {
+  position: relative;
+}
+.noise-overlay::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.055;
+  z-index: 5;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size: 220px 220px;
+}
+
+.persian-pattern {
+  background-image:
+    radial-gradient(circle at 15% 20%, rgba(201, 162, 39, 0.08) 0, transparent 42%),
+    radial-gradient(circle at 85% 80%, rgba(52, 116, 102, 0.14) 0, transparent 45%);
+}
+
+.hero-vignette {
+  background: radial-gradient(ellipse 120% 90% at 50% 40%, transparent 40%, rgba(6, 28, 26, 0.55) 82%, rgba(6, 28, 26, 0.9) 100%);
+}
+
+.gold-divider {
+  background: linear-gradient(90deg, transparent, var(--color-gold-500), transparent);
+  height: 1px;
+}
+
+.card-lift {
+  transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.45s cubic-bezier(0.22, 1, 0.36, 1), border-color 0.45s;
+}
+.card-lift:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 34px 64px -28px rgba(6, 28, 26, 0.45);
+}
+
+.outline-text {
+  -webkit-text-stroke: 1.2px rgba(230, 205, 139, 0.4);
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+}
+
+/* FAQ accordion */
+.faq-answer {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.faq-answer.open {
+  grid-template-rows: 1fr;
+}
+.faq-answer > div {
+  overflow: hidden;
+}
+
+/* number input arrows off */
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+input[type="number"] { -moz-appearance: textfield; }
+
+/* custom range slider */
+input[type="range"].gold-range {
+  -webkit-appearance: none;
+  appearance: none;
+  height: 6px;
+  border-radius: 99px;
+  background: linear-gradient(90deg, var(--color-gold-500) var(--fill, 50%), #1e5148 var(--fill, 50%));
+  outline: none;
+  cursor: pointer;
+}
+input[type="range"].gold-range::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 22px; height: 22px; border-radius: 99px;
+  background: radial-gradient(circle at 35% 35%, #f5e6ac, #c9a227);
+  border: 3px solid #0b2926;
+  box-shadow: 0 2px 10px rgba(201, 162, 39, 0.6);
+  cursor: grab;
+}
+input[type="range"].gold-range::-moz-range-thumb {
+  width: 22px; height: 22px; border-radius: 99px;
+  background: radial-gradient(circle at 35% 35%, #f5e6ac, #c9a227);
+  border: 3px solid #0b2926;
+  box-shadow: 0 2px 10px rgba(201, 162, 39, 0.6);
+  cursor: grab;
+}
